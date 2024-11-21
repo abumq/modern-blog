@@ -13,20 +13,26 @@ config({
 const app = express()
 const port = 3000
 
-console.log('DB URL:', process.env.DATABASE_URL)
+console.log('DB connection string:', process.env.DATABASE_URL)
 
 let ssl;
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const certFile = path.resolve(__dirname, './serv.crt')
+if (process.env.SSL_CERT) {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+  const certFile = path.resolve(__dirname, './', process.env.SSL_CERT)
 
-if (fs.existsSync(certFile)) {
-  console.log('SSL enabled for database connection!')
-  ssl = {
-    rejectUnauthorized: false,
-    ca: fs.readFileSync(certFile).toString(),
+  if (fs.existsSync(certFile)) {
+    console.log('SSL enabled for database connection!', certFile)
+    ssl = {
+      rejectUnauthorized: false,
+      ca: fs.readFileSync(certFile).toString(),
+    }
+  } else {
+    console.log('SSL disabled. Certificate file not found', certFile)
   }
+} else {
+  console.log('SSL disabled. No SSL_CERT specified')
 }
 
 const pool = new pg.Pool({
@@ -45,6 +51,7 @@ app.get('/api/posts', async (req, res) => {
     )
     res.json(result.rows)
   } catch (err) {
+    console.error(err)
     res.status(500).json({ error: 'Failed to fetch posts' })
   }
 })
