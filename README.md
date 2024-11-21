@@ -18,17 +18,30 @@ The primary goal is to demonstrate the use of this tech stack and showcase a sim
 
 ### Getting Started
 
-* Run PostgreSQL server locally or use one of the free ones on cloud
-* Create `.env.local` and provide `DATABASE_URL` (or use existing `.env` if running locally)
-* Install the package
+#### Installation
+
 ```
 npm i
 ```
-* Start server
+
+#### Database
+
+Once you have postgreSQL up & server running, start by creating a database and table
+
+```
+psql -h localhost -U postgres -f db/init.sql
+```
+
+Update `.env` or create `.env.local` and provide `DATABASE_URL` for server's [connection URI](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING-URIS)
+
+#### API Server
+
 ```
 npm run dev:server
 ```
-* Start client
+
+#### Frontend
+
 ```
 npm run dev
 ```
