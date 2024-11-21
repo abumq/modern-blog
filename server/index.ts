@@ -1,3 +1,6 @@
+import fs from 'fs'
+import path from 'path'
+import { fileURLToPath } from 'url';
 import express from 'express'
 import cors from 'cors'
 import pg from 'pg'
@@ -12,8 +15,23 @@ const port = 3000
 
 console.log('DB URL:', process.env.DATABASE_URL)
 
+let ssl;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const certFile = path.resolve(__dirname, './serv.crt')
+
+if (fs.existsSync(certFile)) {
+  console.log('SSL enabled for database connection!')
+  ssl = {
+    rejectUnauthorized: false,
+    ca: fs.readFileSync(certFile).toString(),
+  }
+}
+
 const pool = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
+  ssl,
 })
 
 app.use(cors())
