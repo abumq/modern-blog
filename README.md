@@ -30,6 +30,7 @@ Once you have postgreSQL up & server running, start by creating a database and t
 
 ```
 psql -h localhost -U postgres -f db/init.sql
+psql -h localhost -U postgres -f db/samples.sql
 ```
 
 Update `.env` or create `.env.local` and provide `DATABASE_URL` for server's [connection URI](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING-URIS)
