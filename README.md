@@ -2,9 +2,10 @@
 
 An ultra-simple blog site built with the following technologies:
  * React (Vite)
- * Typescript
+ * TypeScript
  * Tailwind CSS
- * Postgres
+ * Express
+ * PostgreSQL
  * React Query
  * React Hook Form
 
