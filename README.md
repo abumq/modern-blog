@@ -16,6 +16,8 @@ This project is not intended for production use as-is. The current implementatio
 
 The primary goal is to demonstrate the use of this tech stack and showcase a simple end-to-end CRUD (Create, Read, Update, Delete) application. It's designed to serve as a learning tool or a foundation/boilerplate for your own projects.
 
+Note: This repository is configured to serve files directly from the root of the running app. For example, you can access the LICENSE file by navigating to http://localhost:5173/LICENSE, as it is served from the root of the GitHub repository.
+
 ### Getting Started
 
 #### Installation
@@ -48,3 +50,8 @@ npm run dev
 ```
 
 Enjoy!
+
+---
+
+![Screenshot](screenshot.png "Screenshot")
+
